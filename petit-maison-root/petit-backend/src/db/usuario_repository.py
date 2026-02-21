@@ -1,15 +1,9 @@
-from fastapi import FastAPI, HTTPException, Depends
-from pydantic import BaseModel, EmailStr
-from sqlalchemy import create_engine, String
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session, sessionmaker
-from ..dto.usuario import UsuarioCreate, UsuarioOut
+from fastapi import HTTPException
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column, Session
+from ..dto.usuario import UsuarioCreate
+from .base import Base, get_db, engine, SessionLocal
 
-DATABASE_URL = "sqlite:///./db/petit.db"
-engine = create_engine(DATABASE_URL, echo=False)
-SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
-
-class Base(DeclarativeBase):
-    pass
 
 class UsuarioDB(Base):
     __tablename__ = "usuarios"
@@ -18,15 +12,6 @@ class UsuarioDB(Base):
     nombre: Mapped[str] = mapped_column(String(100))
     email: Mapped[str] = mapped_column(String(120), unique=True, index=True)
     telefono: Mapped[str] = mapped_column(String(30))
-
-Base.metadata.create_all(bind=engine)
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
         
         
 class UsuarioRepository:

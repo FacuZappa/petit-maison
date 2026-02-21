@@ -1,5 +1,5 @@
 from ..db.usuario_repository import UsuarioRepository
-from ..dto.usuario import UsuarioCreate, UsuarioOut
+from ..dto.usuario import UsuarioCreate
 
 class UsuarioService:
     def __init__(self, repo: UsuarioRepository):
