@@ -5,6 +5,11 @@
   text-align: center;
 }
 
+/* Espacio para la navbar fija */
+.main-content {
+  padding-top: 4rem;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
